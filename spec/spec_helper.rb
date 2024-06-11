@@ -95,4 +95,32 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.after(:suite) do
+    coverage_result = SimpleCov.result.covered_percent.round(2)
+    repo_name = ENV['CIRCLE_PROJECT_REPONAME']
+    commit_hash = ENV['CIRCLE_SHA1']
+    branch_name = ENV['CIRCLE_BRANCH']
+    coverage = coverage_result
+
+    puts "Repo Name: #{repo_name}"
+    puts "Commit Hash: #{commit_hash}"
+    puts "Branch Name: #{branch_name}"
+    puts "Coverage: #{coverage}%"
+
+    uri = URI.parse("https://42cb-2405-4803-fc3d-d750-b032-64b7-bf6d-47d3.ngrok-free.app/coverage")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == 'https'
+
+    request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
+    request.body = {
+      repo_name: repo_name,
+      commit_hash: commit_hash,
+      branch_name: branch_name,
+      coverage: coverage
+    }.to_json
+
+    response = http.request(request)
+    puts "Response from API: #{response.body}"
+  end
 end
