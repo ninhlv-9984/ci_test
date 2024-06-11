@@ -13,4 +13,8 @@ class Post < ApplicationRecord
   def test_number_3
     return 4
   end
+
+  def test_number_4
+    return 5
+  end
 end

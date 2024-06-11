@@ -101,6 +101,7 @@ RSpec.configure do |config|
     repo_name = ENV['CIRCLE_PROJECT_REPONAME']
     commit_hash = ENV['CIRCLE_SHA1']
     branch_name = ENV['CIRCLE_BRANCH']
+    build_url = ENV['CIRCLE_BUILD_URL']
     coverage = coverage_result
 
     puts "Repo Name: #{repo_name}"
@@ -117,7 +118,8 @@ RSpec.configure do |config|
       repo_name: repo_name,
       commit_hash: commit_hash,
       branch_name: branch_name,
-      coverage: coverage
+      coverage: coverage,
+      build_url: build_url
     }.to_json
 
     response = http.request(request)
