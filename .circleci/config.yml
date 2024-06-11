@@ -1,0 +1,27 @@
+version: 2.1
+
+executors:
+  ruby-executor:
+    docker:
+      - image: circleci/ruby:2.7.6
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+
+jobs:
+  rspec:
+    executor: ruby-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bundle install --path vendor/bundle
+      - run:
+          name: Run RSpec
+          command: bundle exec rspec
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - rspec
