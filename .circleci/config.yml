@@ -3,7 +3,7 @@ version: 2.1
 executors:
   ruby-executor:
     docker:
-      - image: circleci/ruby:2.7.6
+      - image: cimg/ruby:2.7.6
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
