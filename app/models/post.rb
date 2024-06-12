@@ -6,13 +6,13 @@ class Post < ApplicationRecord
     return 1
   end
 
-  # def test_number_2
-  #   return 3
-  # end
+  def test_number_2
+    return 3
+  end
 
-  # def test_number_3
-  #   return 4
-  # end
+  def test_number_3
+    return 4
+  end
 
   # def test_number_4
   #   return 5
