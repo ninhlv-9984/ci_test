@@ -109,7 +109,7 @@ RSpec.configure do |config|
     puts "Branch Name: #{branch_name}"
     puts "Coverage: #{coverage}%"
 
-    uri = URI.parse("https://42cb-2405-4803-fc3d-d750-b032-64b7-bf6d-47d3.ngrok-free.app/coverage")
+    uri = URI.parse("https://mx1238c101.execute-api.ap-northeast-1.amazonaws.com/Prod/coverage")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true if uri.scheme == 'https'
 
