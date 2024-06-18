@@ -13,6 +13,7 @@
 # it.
 #
 require 'simplecov'
+require_relative '../lib/ci/status_check'
 SimpleCov.start do
   add_filter '/spec/'
 end
@@ -98,31 +99,6 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     coverage_result = SimpleCov.result.covered_percent.round(2)
-    repo_name = ENV['CIRCLE_PROJECT_REPONAME']
-    commit_hash = ENV['CIRCLE_SHA1']
-    branch_name = ENV['CIRCLE_BRANCH']
-    build_url = ENV['CIRCLE_BUILD_URL']
-    coverage = coverage_result
-
-    puts "Repo Name: #{repo_name}"
-    puts "Commit Hash: #{commit_hash}"
-    puts "Branch Name: #{branch_name}"
-    puts "Coverage: #{coverage}%"
-
-    uri = URI.parse("https://mx1238c101.execute-api.ap-northeast-1.amazonaws.com/Prod/coverage")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true if uri.scheme == 'https'
-
-    request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
-    request.body = {
-      repo_name: repo_name,
-      commit_hash: commit_hash,
-      branch_name: branch_name,
-      coverage: coverage,
-      build_url: build_url
-    }.to_json
-
-    response = http.request(request)
-    puts "Response from API: #{response.body}"
+    Ci::StatusCheck.new(coverage_result).call
   end
 end
