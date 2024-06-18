@@ -13,7 +13,7 @@
 # it.
 #
 require 'simplecov'
-require Rails.root.join('lib/ci/status_check')
+require_relative '../lib/ci/status_check'
 SimpleCov.start do
   add_filter '/spec/'
 end

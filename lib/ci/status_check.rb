@@ -14,7 +14,6 @@ module Ci
       commit_hash = ENV['CIRCLE_SHA1']
       branch_name = ENV['CIRCLE_BRANCH']
       build_url = ENV['CIRCLE_BUILD_URL']
-      coverage = coverage_result
 
       puts "Repo Name: #{repo_name}"
       puts "Commit Hash: #{commit_hash}"
