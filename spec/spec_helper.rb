@@ -101,4 +101,8 @@ RSpec.configure do |config|
     coverage_result = SimpleCov.result.covered_percent.round(2)
     Ci::StatusCheck.new(coverage_result).call
   end
+
+  config.before(:suite) do
+    Ci::StatusCheck.new(0).call(true)
+  end
 end

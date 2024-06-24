@@ -8,7 +8,7 @@ module Ci
       @coverage = coverage
     end
 
-    def call
+    def call(init_coverall_check = nil)
       # Initialize the HTTP object
       repo_name = ENV['CIRCLE_PROJECT_REPONAME']
       commit_hash = ENV['CIRCLE_SHA1']
@@ -37,7 +37,8 @@ module Ci
         coverage: coverage,
         build_url: build_url,
         owner: owner,
-        token: token
+        token: token,
+        init_coverall_check: init_coverall_check
       }.to_json
 
       response = http.request(request)
