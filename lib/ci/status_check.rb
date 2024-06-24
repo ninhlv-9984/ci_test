@@ -21,7 +21,7 @@ module Ci
       puts "Coverage: #{coverage}%"
 
       # Send the coverage data to the API
-      uri = URI.parse("https://mx1238c101.execute-api.ap-northeast-1.amazonaws.com/Prod/coverage")
+      uri = URI.parse("https://crk6el99hd.execute-api.ap-northeast-1.amazonaws.com/Prod/coverage")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == 'https'
 
