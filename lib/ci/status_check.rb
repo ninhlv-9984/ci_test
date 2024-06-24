@@ -14,6 +14,7 @@ module Ci
       commit_hash = ENV['CIRCLE_SHA1']
       branch_name = ENV['CIRCLE_BRANCH']
       build_url = ENV['CIRCLE_BUILD_URL']
+      owner = ENV['CIRCLE_PROJECT_USERNAME']
 
       puts "Repo Name: #{repo_name}"
       puts "Commit Hash: #{commit_hash}"
@@ -31,7 +32,8 @@ module Ci
         commit_hash: commit_hash,
         branch_name: branch_name,
         coverage: coverage,
-        build_url: build_url
+        build_url: build_url,
+        owner: owner
       }.to_json
 
       response = http.request(request)
