@@ -15,6 +15,7 @@ module Ci
       branch_name = ENV['CIRCLE_BRANCH']
       build_url = ENV['CIRCLE_BUILD_URL']
       owner = ENV['CIRCLE_PROJECT_USERNAME']
+      url = ENV['CI_CHECK_URL']
 
       puts "Repo Name: #{repo_name}"
       puts "Commit Hash: #{commit_hash}"
@@ -22,7 +23,8 @@ module Ci
       puts "Coverage: #{coverage}%"
 
       # Send the coverage data to the API
-      uri = URI.parse("https://crk6el99hd.execute-api.ap-northeast-1.amazonaws.com/Prod/coverage")
+
+      uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == 'https'
 
